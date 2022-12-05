@@ -45,14 +45,14 @@ Cosas a tener en cuenta:
 
 
 function fitsInOneBox(boxes: Array<{ l: number, w: number, h: number }>): boolean {
-  boxes.sort((a, b) => a.l - b.l || a.w - b.w || a.h - b.h);
-  for (let i = 1; i < boxes.length; i++) {
-    if (boxes[i].l <= boxes[i - 1].l || boxes[i].w <= boxes[i - 1].w || boxes[i].h <= boxes[i - 1].h) {
-      return false;
-    }
-  }
-  return true;
+  const sortedBoxes = boxes.sort((a, b) => a.l - b.l || a.w - b.w || a.h - b.h);
+  return sortedBoxes.every((box, i, boxes) => {
+    if (i === boxes.length - 1) return true;
+    return box.l < boxes[i + 1].l && box.w < boxes[i + 1].w && box.h < boxes[i + 1].h
+  });
+
 }
+
 
 
 const boxes = [
