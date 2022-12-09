@@ -16,9 +16,8 @@ function countTime(leds: number[]): number {
 
   ledsOff[0] += ledsOff.pop();
 
-  return ledsOff.reduce((time: number, ledOff: string) => {
-    return Math.max(time, ledOff.length * 7);
-  }, 0);
+  return ledsOff.reduce((time: number, ledOff: string) => 
+     Math.max(time, ledOff.length * 7), 0);
 };
 
 
