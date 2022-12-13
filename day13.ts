@@ -14,14 +14,13 @@ Recuerda que:
 
 
 function getFilesToBackup(lastBackup: number, changes: Array<Array<number>>): number[] {
-  const selected: number[] = [];
+  const selected: number[][] = changes.filter((change) => change[1] > lastBackup);
 
-  changes.forEach((change: number[]) => {
-    if (change[1] > lastBackup) {
-      selected.push(change[0]);
-    }
-  });
-  return [...new Set(selected)];
+  const ids: number[] = selected.map((change) => change[0]);
+
+  const sortedIds: number[] = ids.sort((a, b) => a - b);
+
+  return [...new Set(sortedIds)];
 }
 
 const lastBackup: number = 1546300800
